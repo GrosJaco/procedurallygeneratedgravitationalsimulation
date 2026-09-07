@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://bls0fahchi872"]
+
+[ext_resource type="Script" uid="uid://ccidc7jbgrjkq" path="res://entities/ships/ship_parts/engines/engine_part.gd" id="1_tfrh5"]
+[ext_resource type="Texture2D" uid="uid://gh3m5pr2g4pr" path="res://assets/sprites/ship_parts/Engines.png" id="2_bcqtf"]
+[ext_resource type="Script" uid="uid://dwhoh5sq7kyeg" path="res://entities/ships/ship_parts/attachmentNode.gd" id="3_safwh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bcqtf"]
+atlas = ExtResource("2_bcqtf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Gradient" id="Gradient_safwh"]
+offsets = PackedFloat32Array(0, 0.30451128, 0.5902256, 0.981203)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 1, 0.49803922, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qxy2b"]
+gradient = SubResource("Gradient_safwh")
+
+[sub_resource type="Curve" id="Curve_6k8w4"]
+_data = [Vector2(0, 0.80313206), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3jmdf"]
+curve = SubResource("Curve_6k8w4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q75vk"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(6, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 300.0
+initial_velocity_max = 400.0
+scale_curve = SubResource("CurveTexture_3jmdf")
+color_ramp = SubResource("GradientTexture1D_qxy2b")
+
+[node name="ColibriEngine" type="Node2D" unique_id=1158004037 node_paths=PackedStringArray("engine_flame")]
+script = ExtResource("1_tfrh5")
+engine_thrust = 800.0
+engine_flame = NodePath("GPUParticles2D")
+part_name = "Colibri Engine"
+part_category = "Propulsion"
+dry_mass = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=298790335]
+texture = SubResource("AtlasTexture_bcqtf")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1668047228]
+position = Vector2(0, 15)
+emitting = false
+amount = 50
+lifetime = 0.35000000000000003
+process_material = SubResource("ParticleProcessMaterial_q75vk")
+
+[node name="TopNode" type="Marker2D" parent="." unique_id=1857363598]
+position = Vector2(0, -16)
+script = ExtResource("3_safwh")
+node_type = 0

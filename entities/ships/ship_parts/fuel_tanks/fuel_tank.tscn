@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b0763ps1ilp0"]
+
+[ext_resource type="Script" uid="uid://bpuaxlq3gdum8" path="res://entities/ships/ship_parts/fuel_tanks/fuel_tank_parts.gd" id="1_6wxfu"]
+[ext_resource type="Texture2D" uid="uid://biavgxgehhmqb" path="res://assets/sprites/ship_parts/FuelTanks.png" id="2_wjseo"]
+[ext_resource type="Script" uid="uid://dwhoh5sq7kyeg" path="res://entities/ships/ship_parts/attachmentNode.gd" id="3_6wxfu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wxfu"]
+atlas = ExtResource("2_wjseo")
+region = Rect2(64, 0, 32, 32)
+
+[node name="FuelTank" type="Node2D" unique_id=2073381244]
+script = ExtResource("1_6wxfu")
+part_name = "Fuel Tank (M)"
+part_category = "Fuel"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=300339080]
+texture = SubResource("AtlasTexture_6wxfu")
+
+[node name="TopNode" type="Marker2D" parent="." unique_id=1972307666]
+position = Vector2(0, -16)
+script = ExtResource("3_6wxfu")
+node_type = 0
+
+[node name="BottomNode" type="Marker2D" parent="." unique_id=779819639]
+position = Vector2(0, 16)
+script = ExtResource("3_6wxfu")
+node_type = 1

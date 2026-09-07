@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cudia1hmj2wjl"]
+
+[ext_resource type="Script" uid="uid://1um0loieiylq" path="res://entities/ships/ship_parts/control_part.gd" id="1_ue0co"]
+[ext_resource type="Texture2D" uid="uid://cy178g76rqaa3" path="res://assets/sprites/ship_parts/SpecialParts.png" id="2_hx6va"]
+[ext_resource type="Script" uid="uid://dwhoh5sq7kyeg" path="res://entities/ships/ship_parts/attachmentNode.gd" id="3_u1ohp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1ohp"]
+atlas = ExtResource("2_hx6va")
+region = Rect2(0, 0, 32, 16)
+
+[node name="Capsule" type="Node2D" unique_id=1348843618]
+script = ExtResource("1_ue0co")
+part_name = "Capsule"
+part_category = "Command"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1607566641]
+texture = SubResource("AtlasTexture_u1ohp")
+
+[node name="BottomNode" type="Marker2D" parent="." unique_id=821381289]
+position = Vector2(0, 8)
+script = ExtResource("3_u1ohp")
+node_type = 1

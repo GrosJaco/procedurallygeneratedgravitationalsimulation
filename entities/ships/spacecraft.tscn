@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cyt6p7ps0xebl"]
+
+[ext_resource type="Script" uid="uid://iwfm34bf06iq" path="res://entities/ships/spacecraft.gd" id="1_bsnx0"]
+[ext_resource type="Texture2D" uid="uid://cbfwvvbf11j6d" path="res://assets/sprites/Placeholder.png" id="2_bsnx0"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bsnx0"]
+rough = true
+absorbent = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lwyk0"]
+atlas = ExtResource("2_bsnx0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3hjc"]
+resource_local_to_scene = true
+size = Vector2(32, 32.25)
+
+[node name="Spacecraft" type="RigidBody2D" unique_id=374287333]
+physics_material_override = SubResource("PhysicsMaterial_bsnx0")
+gravity_scale = 0.0
+can_sleep = false
+continuous_cd = 1
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_bsnx0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=514867731]
+texture = SubResource("AtlasTexture_lwyk0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=883781457]
+position = Vector2(0, -0.125)
+shape = SubResource("RectangleShape2D_i3hjc")
+
+[node name="Timer" type="Timer" parent="." unique_id=735252881]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

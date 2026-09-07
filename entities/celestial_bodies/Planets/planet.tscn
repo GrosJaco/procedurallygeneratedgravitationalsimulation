@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://dnra21in0wy35"]
+
+[ext_resource type="Script" uid="uid://cy28g2cxtrghc" path="res://entities/celestial_bodies/Planets/planet.gd" id="1_er5pp"]
+[ext_resource type="Shader" uid="uid://dg1fs58073t5f" path="res://entities/celestial_bodies/Planets/planet.gdshader" id="2_w2n62"]
+[ext_resource type="Script" uid="uid://bm5fyq4dc2cpu" path="res://entities/celestial_bodies/sphere_of_influence.gd" id="3_vvveg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scwnx"]
+shader = ExtResource("2_w2n62")
+shader_parameter/rect_size = 1000.0
+shader_parameter/pixel_size = 0.5
+shader_parameter/light_direction = Vector2(1, 0)
+shader_parameter/color_light = Color(0.4, 0.8, 0.4, 1)
+shader_parameter/color_dark = Color(0.2, 0.4, 0.2, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efy62"]
+radius = 1000.0
+
+[node name="Planet" type="AnimatableBody2D" unique_id=2072270901]
+script = ExtResource("1_er5pp")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=362049550]
+material = SubResource("ShaderMaterial_scwnx")
+offset_left = -1000.0
+offset_top = -1000.0
+offset_right = 1000.0
+offset_bottom = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=144725299]
+shape = SubResource("CircleShape2D_efy62")
+
+[node name="SphereOfInfluence" type="Area2D" parent="." unique_id=1818753653]
+script = ExtResource("3_vvveg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SphereOfInfluence" unique_id=55110894]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_efy62")

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://c2xoimqfxl3bo"]
+
+[ext_resource type="Script" uid="uid://cti2fcwlu2gdu" path="res://entities/celestial_bodies/Stars/star.gd" id="1_uvcbt"]
+[ext_resource type="Shader" uid="uid://f7p5jx0oxpxm" path="res://entities/celestial_bodies/Stars/star.gdshader" id="2_p0qkq"]
+[ext_resource type="Script" uid="uid://bm5fyq4dc2cpu" path="res://entities/celestial_bodies/sphere_of_influence.gd" id="3_xi6yg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xi6yg"]
+rough = true
+absorbent = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xi6yg"]
+shader = ExtResource("2_p0qkq")
+shader_parameter/rect_size = 4000.0
+shader_parameter/pixel_size = 0.5
+shader_parameter/star_radius = 0.35
+shader_parameter/color_core = Color(1, 1, 0.8, 1)
+shader_parameter/color_halo = Color(1, 0.6, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_07llu"]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0qkq"]
+radius = 20000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w6t37"]
+
+[node name="Star" type="AnimatableBody2D" unique_id=1379940296]
+physics_material_override = SubResource("PhysicsMaterial_xi6yg")
+script = ExtResource("1_uvcbt")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=833958796]
+material = SubResource("ShaderMaterial_xi6yg")
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 2000.0
+offset_bottom = 2000.0
+
+[node name="PhysicalShape" type="CollisionShape2D" parent="." unique_id=1862187139]
+shape = SubResource("CircleShape2D_07llu")
+
+[node name="Corona" type="Area2D" parent="." unique_id=1716895402]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Corona" unique_id=1549305293]
+shape = SubResource("CircleShape2D_p0qkq")
+
+[node name="SphereOfInfluence" type="Area2D" parent="." unique_id=2001232751]
+script = ExtResource("3_xi6yg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SphereOfInfluence" unique_id=296235339]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_w6t37")

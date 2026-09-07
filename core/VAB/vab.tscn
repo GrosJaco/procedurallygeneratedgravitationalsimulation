@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://crxdd1vitgqgo"]
+
+[ext_resource type="Script" uid="uid://ds5cei00vth1u" path="res://core/VAB/VABManager.gd" id="1_xs8my"]
+[ext_resource type="PackedScene" uid="uid://cudia1hmj2wjl" path="res://entities/ships/ship_parts/capsule.tscn" id="2_64peq"]
+[ext_resource type="PackedScene" uid="uid://bls0fahchi872" path="res://entities/ships/ship_parts/engines/ColibriEngine.tscn" id="3_2jwup"]
+[ext_resource type="PackedScene" uid="uid://bk7p5metfg3m5" path="res://entities/ships/ship_parts/engines/EagleEngine.tscn" id="4_jcr4h"]
+[ext_resource type="PackedScene" uid="uid://b0763ps1ilp0" path="res://entities/ships/ship_parts/fuel_tanks/fuel_tank.tscn" id="5_64peq"]
+
+[node name="VAB" type="Node2D" unique_id=618804746]
+script = ExtResource("1_xs8my")
+part_registry = {
+"capsule": ExtResource("2_64peq"),
+"colibri_engine": ExtResource("3_2jwup"),
+"eagle_engine": ExtResource("4_jcr4h"),
+"fuel_tank": ExtResource("5_64peq")
+}
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1297603647]
+
+[node name="BuildArea" type="Node2D" parent="." unique_id=1851914609]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1946567256]
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1117680051]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Panel" unique_id=1406704438]
+layout_mode = 0
+offset_right = 102.0
+offset_bottom = 650.0
+
+[node name="MenuContainer" type="VBoxContainer" parent="CanvasLayer/Panel/ScrollContainer" unique_id=196510160]
+layout_mode = 2

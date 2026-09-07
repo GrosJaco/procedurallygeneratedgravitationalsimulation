@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://nthx6gm4wjxp"]
+
+[ext_resource type="PackedScene" uid="uid://ussvahc2ttt2" path="res://core/components/hud.tscn" id="1_etqu2"]
+[ext_resource type="Script" uid="uid://co0ft1n7bdmyh" path="res://core/components/system_generator.gd" id="1_qy63d"]
+[ext_resource type="Script" uid="uid://nqbe8i6hj2ft" path="res://core/components/main.gd" id="1_xdh4e"]
+[ext_resource type="PackedScene" uid="uid://b64418d1pr1vr" path="res://core/components/starfield_background.tscn" id="2_5k4jt"]
+[ext_resource type="Script" uid="uid://bdd4mtyi6m3vs" path="res://core/components/player_controller.gd" id="2_ifaiv"]
+[ext_resource type="Script" uid="uid://cx0clqmh336ji" path="res://core/components/hud.gd" id="2_jw1n3"]
+[ext_resource type="Script" uid="uid://damshmbpyxb6k" path="res://core/components/game_camera.gd" id="2_m1504"]
+[ext_resource type="PackedScene" uid="uid://b4mrci4yihi7q" path="res://core/components/system_map.tscn" id="2_qy63d"]
+[ext_resource type="PackedScene" uid="uid://c2xoimqfxl3bo" path="res://entities/celestial_bodies/Stars/star.tscn" id="4_5k4jt"]
+[ext_resource type="PackedScene" uid="uid://cyt6p7ps0xebl" path="res://entities/ships/spacecraft.tscn" id="4_qy63d"]
+[ext_resource type="PackedScene" uid="uid://dnra21in0wy35" path="res://entities/celestial_bodies/Planets/planet.tscn" id="5_6et1j"]
+[ext_resource type="Script" uid="uid://dp86ico3fdway" path="res://core/VAB/ship_builder.gd" id="7_c7dyn"]
+[ext_resource type="PackedScene" uid="uid://bk7p5metfg3m5" path="res://entities/ships/ship_parts/engines/EagleEngine.tscn" id="8_1fput"]
+[ext_resource type="PackedScene" uid="uid://bls0fahchi872" path="res://entities/ships/ship_parts/engines/ColibriEngine.tscn" id="9_6yxbg"]
+[ext_resource type="PackedScene" uid="uid://b0763ps1ilp0" path="res://entities/ships/ship_parts/fuel_tanks/fuel_tank.tscn" id="10_4fc0e"]
+[ext_resource type="PackedScene" uid="uid://cudia1hmj2wjl" path="res://entities/ships/ship_parts/capsule.tscn" id="11_21ko3"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6et1j"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(2000, 2000, 1)
+gravity = Vector3(0, 0, 0)
+color = Color(0.81960785, 0.8117647, 0.80784315, 0.8117647)
+
+[node name="Main" type="Node2D" unique_id=1464935872 node_paths=PackedStringArray("builder")]
+script = ExtResource("1_xdh4e")
+builder = NodePath("ShipBuilder")
+
+[node name="HUD" parent="." unique_id=454538996 instance=ExtResource("1_etqu2")]
+script = ExtResource("2_jw1n3")
+
+[node name="ParallaxBackground" parent="." unique_id=1286564934 instance=ExtResource("2_5k4jt")]
+
+[node name="SystemMap" parent="." unique_id=1413475753 instance=ExtResource("2_qy63d")]
+visible = false
+
+[node name="MapViewLayer" type="CanvasLayer" parent="." unique_id=1863212371]
+
+[node name="MapDrawer" type="Control" parent="MapViewLayer" unique_id=1562113322]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PlayerController" type="Node" parent="." unique_id=1193482183 node_paths=PackedStringArray("player_camera", "player_hud")]
+script = ExtResource("2_ifaiv")
+player_camera = NodePath("../GameCamera")
+player_hud = NodePath("../HUD")
+
+[node name="ShipBuilder" type="Node2D" parent="." unique_id=76257337]
+script = ExtResource("7_c7dyn")
+part_registry = {
+"capsule": ExtResource("11_21ko3"),
+"colibri_engine": ExtResource("9_6yxbg"),
+"eagle_engine": ExtResource("8_1fput"),
+"fuel_tank": ExtResource("10_4fc0e")
+}
+spacecraft_scene = ExtResource("4_qy63d")
+
+[node name="SystemGenerator" type="Node2D" parent="." unique_id=172845871]
+script = ExtResource("1_qy63d")
+planet_scene = ExtResource("5_6et1j")
+star_scene = ExtResource("4_5k4jt")
+
+[node name="GameCamera" type="Camera2D" parent="." unique_id=685996038]
+script = ExtResource("2_m1504")
+
+[node name="SpaceDust" type="GPUParticles2D" parent="GameCamera" unique_id=823061204]
+position = Vector2(0, 1)
+amount = 500
+lifetime = 5.0
+preprocess = 5.0
+process_material = SubResource("ParticleProcessMaterial_6et1j")
